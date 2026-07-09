@@ -481,7 +481,7 @@ section{padding-block:clamp(40px,4.6vw,76px)}
 .ico-tel{vertical-align:-2px;margin-right:.3em}
 
 /* === HERO FACHOWCY: dwublok (zdjęcie | lity panel ink). Zdjęcie = PIERWSZE dziecko (blur-guard + mobilny stack). STATYCZNE. === */
-.hero-fach{display:grid;grid-template-columns:1fr minmax(0,46%);min-height:clamp(480px,60vh,600px);min-height:clamp(480px,60svh,600px)}
+.hero-fach{display:grid;grid-template-columns:1fr minmax(0,46%);min-height:clamp(520px,64vh,640px);min-height:clamp(520px,64svh,640px)}
 .hf-photo{width:100%;height:100%;object-fit:cover;display:block;background:var(--paper-2)}  /* img = PIERWSZE dziecko sekcji (blur-guard); EAGER, bez animacji (zero janku) */
 .hf-panel{order:-1;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;
   padding:clamp(2.2rem,5vw,4.5rem) clamp(1.6rem,4vw,3.6rem)}
@@ -677,6 +677,7 @@ img[src$="/g12.jpg"]{object-position:35% 52%}
    płynny cień, równe odstępy, logo wyraźne.
    ============================================================ */
 .nav{
+  position:sticky !important; top:0 !important;   /* w przepływie - odsuwa hero, NIE nakłada się (koniec ucinania góry) */
   background:#fff !important;
   -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
   border-bottom:1px solid var(--line) !important;
@@ -684,6 +685,7 @@ img[src$="/g12.jpg"]{object-position:35% 52%}
   transform:none !important;                 /* nigdy nie chowaj */
   transition:box-shadow .35s ease !important;
 }
+.nav::after{display:none !important}          /* ciemny gradient (był pod przezroczystym navem) - zbędny */
 .nav.is-stuck{ box-shadow:0 8px 24px -14px rgba(20,23,28,.28) !important; }
 .nav .nav-inner{height:80px !important; transition:height .35s ease !important}
 .nav.is-stuck .nav-inner{height:64px !important}
