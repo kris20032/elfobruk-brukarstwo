@@ -338,8 +338,8 @@ footer{background:var(--dark);color:#fff;padding-block:var(--space-9) var(--spac
    pokryte blanketem wyżej. Karty hairline zamiast cieni = #1 sygnał „nie-AI".
    ============================================================ */
 
-/* więcej oddechu między sekcjami (liderzy: 110-130px) */
-section{padding-block:clamp(64px,8vw,128px)}
+/* oddech między sekcjami (ściśnięte 09.07 - było do 128px, za duże na desktopie) */
+section{padding-block:clamp(40px,4.6vw,76px)}
 
 /* 1) Aksamitny reveal - dłuższa, miękka krzywa zamiast „skoku" */
 .reveal{transition:opacity .9s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);will-change:opacity,transform}
@@ -667,3 +667,5 @@ img[src$="/g12.jpg"]{object-position:35% 52%}
 .brand-logo{height:62px;width:auto;display:block;flex:none}
 .brand-txt{display:flex;flex-direction:column;line-height:1.05}
 @media(max-width:640px){.brand-logo{height:48px}}
+/* hero: bez paddingu sekcji (grid+min-height sam trzyma wysokosc; padding tworzyl jasne pasy) */
+.hero-fach{padding-block:0}
