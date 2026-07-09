@@ -386,7 +386,7 @@ section{padding-block:clamp(40px,4.6vw,76px)}
 /* 6) MANIFESTO - pełnoekranowy cytat-bohater (zastępuje generyczne „Dlaczego my") */
 .manifesto{background:var(--paper-2);text-align:center}
 .manifesto .wrap{max-width:60rem}
-.manifesto p{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:clamp(2rem,1.2rem+2.6vw,3.4rem);line-height:1.28;color:var(--ink);margin-inline:auto;max-width:30ch;position:relative;padding-top:var(--space-7)}
+.manifesto p{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:clamp(2rem,3.6vw,3.4rem);line-height:1.28;color:var(--ink);margin-inline:auto;max-width:30ch;position:relative;padding-top:var(--space-7)}
 .manifesto p::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:1px;background:var(--accent)}
 .manifesto p span{color:var(--accent);font-style:italic}
 
