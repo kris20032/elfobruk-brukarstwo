@@ -481,7 +481,7 @@ section{padding-block:clamp(40px,4.6vw,76px)}
 .ico-tel{vertical-align:-2px;margin-right:.3em}
 
 /* === HERO FACHOWCY: dwublok (zdjęcie | lity panel ink). Zdjęcie = PIERWSZE dziecko (blur-guard + mobilny stack). STATYCZNE. === */
-.hero-fach{display:grid;grid-template-columns:1fr minmax(0,46%);min-height:clamp(540px,76vh,740px);min-height:clamp(540px,76svh,740px)}
+.hero-fach{display:grid;grid-template-columns:1fr minmax(0,46%);min-height:clamp(480px,60vh,600px);min-height:clamp(480px,60svh,600px)}
 .hf-photo{width:100%;height:100%;object-fit:cover;display:block;background:var(--paper-2)}  /* img = PIERWSZE dziecko sekcji (blur-guard); EAGER, bez animacji (zero janku) */
 .hf-panel{order:-1;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;
   padding:clamp(2.2rem,5vw,4.5rem) clamp(1.6rem,4vw,3.6rem)}
