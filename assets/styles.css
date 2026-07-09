@@ -663,8 +663,7 @@ img[src$="/g12.jpg"]{object-position:35% 52%}
 .legal p:last-child{color:var(--muted);font-size:var(--text-sm)}
 
 /* --- logo (09.07) --- */
-.brand{display:flex;align-items:center;gap:11px}
-.brand-logo{height:44px;width:auto;display:block;flex:none}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{height:62px;width:auto;display:block;flex:none}
 .brand-txt{display:flex;flex-direction:column;line-height:1.05}
-.hf-logo{width:158px;max-width:42vw;height:auto;display:block;margin:0 0 20px}
-@media(max-width:640px){.brand-logo{height:38px}.hf-logo{width:120px;margin-bottom:14px}}
+@media(max-width:640px){.brand-logo{height:48px}}
