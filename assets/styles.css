@@ -669,3 +669,37 @@ img[src$="/g12.jpg"]{object-position:35% 52%}
 @media(max-width:640px){.brand-logo{height:48px}}
 /* hero: bez paddingu sekcji (grid+min-height sam trzyma wysokosc; padding tworzyl jasne pasy) */
 .hero-fach{padding-block:0}
+
+/* ============================================================
+   NAV - ujednolicenie (09.07): jeden spójny, czysty pasek.
+   Ubija chaos szablonu (przezroczysty↔solid↔hidden) = koniec
+   migotania przy scrollu do góry. Zawsze biały, ciemny tekst,
+   płynny cień, równe odstępy, logo wyraźne.
+   ============================================================ */
+.nav{
+  background:#fff !important;
+  -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+  border-bottom:1px solid var(--line) !important;
+  box-shadow:0 1px 2px rgba(20,23,28,.04) !important;
+  transform:none !important;                 /* nigdy nie chowaj */
+  transition:box-shadow .35s ease !important;
+}
+.nav.is-stuck{ box-shadow:0 8px 24px -14px rgba(20,23,28,.28) !important; }
+.nav .nav-inner{height:80px !important; transition:height .35s ease !important}
+.nav.is-stuck .nav-inner{height:64px !important}
+/* teksty i linki zawsze ciemne nad białym */
+.nav .brand .sub{color:var(--muted) !important}
+.nav .nav-links a:not(.btn-accent){color:var(--ink-soft) !important}
+.nav .nav-links a:not(.btn-accent):hover,
+.nav .nav-links a.active:not(.btn-accent){color:var(--ink) !important}
+.nav .nav-links a:not(.btn-accent)::after{background:var(--accent-d) !important}
+.nav .nav-links a.btn-accent{background:var(--accent) !important;border:1px solid var(--accent) !important;color:#14171c !important}
+.nav .nav-links a.btn-accent:hover{filter:brightness(1.06)}
+.nav .nav-toggle span{background:var(--ink) !important}
+/* brand: logo + tagline w jednej linii, wyśrodkowane, wyraźne logo */
+.brand{display:flex !important;flex-direction:row !important;align-items:center !important;gap:14px !important}
+.brand-logo{height:58px !important;transition:height .35s ease}
+.nav.is-stuck .brand-logo{height:46px !important}
+.brand-txt{display:flex !important;flex-direction:row !important;align-items:center}
+.brand .sub{display:inline-block !important;margin:0 !important;padding-left:13px;border-left:1px solid var(--line);
+  font-size:.66rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;line-height:1.2}
