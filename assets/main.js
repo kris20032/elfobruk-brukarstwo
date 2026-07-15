@@ -102,7 +102,7 @@
       filters.forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
       items.forEach(function (it) {
-        var show = (f === 'all') || (it.getAttribute('data-kat') === f);
+        var show = (f === 'all') || (it.getAttribute('data-kat') || '').split(' ').indexOf(f) > -1;
         it.classList.toggle('is-hidden', !show);
       });
     });
