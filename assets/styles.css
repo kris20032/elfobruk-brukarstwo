@@ -80,6 +80,9 @@ p{max-width:65ch}
   display:inline-flex;align-items:center;gap:var(--space-3);
 }
 .eyebrow::before{content:"";width:28px;height:1px;background:var(--accent);display:inline-block}
+.eyebrow-lg{font-size:clamp(1.05rem,2.2vw,1.4rem);letter-spacing:.1em}
+.komplet .split-copy .eyebrow-lg{margin-bottom:var(--space-5)}
+.btn-row{display:flex;flex-wrap:wrap;gap:var(--space-4)}
 
 .muted{color:var(--muted)}
 .lead{font-size:var(--text-lg);line-height:1.55;color:var(--ink-soft);max-width:50ch}
@@ -523,7 +526,7 @@ section{padding-block:clamp(40px,4.6vw,76px)}
 
 /* === LISTA USŁUG (zamiast bram-nastrojowych): konkret "co + zakres + wycena" === */
 .fach-uslugi .fu-list{list-style:none;margin:var(--space-8) 0 0;padding:0;display:flex;flex-direction:column}
-.fu-row{display:grid;grid-template-columns:minmax(11rem,1fr) 2fr auto;gap:clamp(1rem,3vw,2.5rem);align-items:center;
+.fu-row{display:grid;grid-template-columns:minmax(11rem,1fr) 2fr;gap:clamp(1rem,3vw,2.5rem);align-items:center;
   padding-block:var(--space-5);border-top:1px solid var(--line)}
 .fu-row:last-child{border-bottom:1px solid var(--line)}
 .fu-name{font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--ink)}
