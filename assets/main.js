@@ -145,3 +145,25 @@
     if (e.key === 'Escape' && box.classList.contains('is-open')) close();
   });
 })();
+
+/* === MASONRY galerii realizacji: oryginalne proporcje, bez dziur === */
+(function () {
+  var grid = document.querySelector('.gal-masonry');
+  if (!grid) return;
+  var ROW = 10, GAP = 16, UNIT = ROW + GAP, PLACEHOLDER = 26; /* ~4:3 zanim zdjęcie się doczyta */
+  function span(item) {
+    var img = item.querySelector('img');
+    if (!img || !img.complete || !img.naturalHeight) return; /* zostaw placeholder do czasu wczytania */
+    var h = item.getBoundingClientRect().height;
+    if (h) item.style.gridRowEnd = 'span ' + Math.ceil((h + GAP) / UNIT);
+  }
+  function layoutAll() { grid.querySelectorAll('.gal-item').forEach(span); }
+  grid.querySelectorAll('.gal-item').forEach(function (it) {
+    it.style.gridRowEnd = 'span ' + PLACEHOLDER; /* rezerwacja miejsca, żeby siatka się nie zapadła */
+    var img = it.querySelector('img');
+    if (img.complete && img.naturalHeight) span(it);
+    else img.addEventListener('load', function () { span(it); });
+  });
+  window.addEventListener('resize', layoutAll);
+  window.addEventListener('load', layoutAll);
+})();
