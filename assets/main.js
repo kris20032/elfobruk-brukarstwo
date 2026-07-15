@@ -96,17 +96,21 @@
   var filters = document.querySelectorAll('.gal-filter');
   if (!filters.length) return;
   var items = document.querySelectorAll('.gal-item');
-  filters.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var f = btn.getAttribute('data-filter');
-      filters.forEach(function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-      items.forEach(function (it) {
-        var show = (f === 'all') || (it.getAttribute('data-kat') || '').split(' ').indexOf(f) > -1;
-        it.classList.toggle('is-hidden', !show);
-      });
+  function apply(f) {
+    filters.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-filter') === f); });
+    items.forEach(function (it) {
+      var show = (f === 'all') || (it.getAttribute('data-kat') || '').split(' ').indexOf(f) > -1;
+      it.classList.toggle('is-hidden', !show);
     });
+  }
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () { apply(btn.getAttribute('data-filter')); });
   });
+  // filtr z parametru URL, np. realizacje.html?kat=Ogrody (z kafelków na home)
+  var wanted = new URLSearchParams(window.location.search).get('kat');
+  if (wanted && [].some.call(filters, function (b) { return b.getAttribute('data-filter') === wanted; })) {
+    apply(wanted);
+  }
 })();
 
 /* === LIGHTBOX: powiększanie zdjęć w galeriach === */
