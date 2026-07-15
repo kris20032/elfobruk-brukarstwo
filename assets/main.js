@@ -108,3 +108,36 @@
     });
   });
 })();
+
+/* === LIGHTBOX: powiększanie zdjęć w galeriach === */
+(function () {
+  var imgs = document.querySelectorAll('.gallery img, .gal-masonry img');
+  if (!imgs.length) return;
+
+  var box = document.createElement('div');
+  box.className = 'lightbox';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.innerHTML = '<button class="lightbox-close" type="button" aria-label="Zamknij">&times;</button><img alt="">';
+  document.body.appendChild(box);
+  var boxImg = box.querySelector('img');
+
+  function open(src, alt) {
+    boxImg.src = src;
+    boxImg.alt = alt || '';
+    box.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    box.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  imgs.forEach(function (img) {
+    img.addEventListener('click', function () { open(img.currentSrc || img.src, img.alt); });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && box.classList.contains('is-open')) close();
+  });
+})();
