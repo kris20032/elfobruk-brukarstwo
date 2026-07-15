@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalog realizacji - wybór kategorii</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;background:#15212E;color:#fff;margin:0;padding:24px 24px 120px}
+h1{font-size:1.4rem;margin:0 0 6px}
+.sub{color:#9fb0c0;margin:0 0 20px;font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:#1e2c3b;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.card img{width:100%;height:220px;object-fit:cover;display:block;background:#0d1218;cursor:zoom-in}
+.meta{padding:10px 12px}
+.fn{font-weight:700;font-size:1rem;margin-bottom:8px}
+.cats{display:flex;flex-wrap:wrap;gap:6px}
+.cat{padding:5px 12px;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.03em;
+  background:#2c3d4f;color:#c7d3de;border:1px solid transparent;cursor:pointer;user-select:none}
+.cat:hover{background:#37485b}
+.cat.active{background:#E8A317;color:#15212E;border-color:#E8A317}
+.card.none{outline:2px solid #d9534f}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#0d1218;border-top:1px solid #2c3d4f;
+  padding:14px 24px;display:flex;align-items:center;gap:16px;font-size:.95rem;flex-wrap:wrap}
+.bar b{color:#E8A317}
+.pill{background:#1e2c3b;border-radius:8px;padding:4px 10px;font-size:.85rem}
+#stat{font-weight:700}
+#lb{position:fixed;inset:0;background:rgba(10,12,16,.92);display:none;align-items:center;justify-content:center;padding:40px;cursor:zoom-out;z-index:99}
+#lb.open{display:flex}#lb img{max-width:100%;max-height:100%;border-radius:8px}
+</style></head><body>
+<h1>Katalog realizacji — kliknij kategorie przy każdym zdjęciu</h1>
+<p class="sub">Możesz zaznaczyć <b>kilka</b> kategorii dla jednego zdjęcia (klik = dodaj/usuń). Zapis idzie <b>od razu do pliku</b> — nic nie zniknie. Klik w zdjęcie = powiększenie.</p>
+<div class="grid" id="grid"></div>
+<div class="bar"><span>Zaznaczeń: <b id="cnt">0</b></span><span class="pill" id="brk"></span><span class="pill" id="empty"></span><span id="stat" style="margin-left:auto;color:#7fd88f">✓ wczytano z pliku</span></div>
+<div id="lb"><img src="" alt=""></div>
+<script>
+var FILES=['real01.jpg','real02.jpg','real03.jpg','real04.jpg','real05.jpg','real06.jpg','real07.jpg','real08.jpg','real09.jpg','real10.jpg','real11.jpg','real12.jpg','real13.jpg','real14.jpg','real15.jpg','real16.jpg','real17.jpg','real18.jpg','real19.jpg','real20.jpg','real21.jpg','real22.jpg','real23.jpg','real24.jpg','real25.jpg','real26.jpg','real27.jpg','real28.jpg',];
+var CATS=['Podjazdy','Tarasy','Schody','Ogrody','Kostka'];
+var choice={};
+function save(){ document.getElementById('stat').style.color='#e8a317'; document.getElementById('stat').textContent='zapisywanie...';
+  fetch('/save',{method:'POST',body:JSON.stringify(choice)}).then(function(){var s=document.getElementById('stat');s.style.color='#7fd88f';s.textContent='✓ zapisano do pliku';}).catch(function(){var s=document.getElementById('stat');s.style.color='#d9534f';s.textContent='⚠ błąd zapisu';}); }
+function render(){
+  var g=document.getElementById('grid'); g.innerHTML='';
+  FILES.forEach(function(f){
+    var sel=choice[f];
+    var card=document.createElement('div'); card.className='card'+(sel.length===0?' none':'');
+    var img=document.createElement('img'); img.src='img/'+f; img.loading='lazy';
+    img.onclick=function(){ var lb=document.getElementById('lb'); lb.querySelector('img').src='img/'+f; lb.classList.add('open'); };
+    var meta=document.createElement('div'); meta.className='meta';
+    var fn=document.createElement('div'); fn.className='fn'; fn.textContent=f;
+    var cats=document.createElement('div'); cats.className='cats';
+    CATS.forEach(function(c){
+      var b=document.createElement('button'); b.className='cat'+(sel.indexOf(c)>-1?' active':''); b.textContent=c;
+      b.onclick=function(){ var i=sel.indexOf(c); if(i>-1)sel.splice(i,1); else sel.push(c); save(); render(); };
+      cats.appendChild(b);
+    });
+    meta.appendChild(fn); meta.appendChild(cats);
+    card.appendChild(img); card.appendChild(meta); g.appendChild(card);
+  });
+  var total=0,brk={},empty=0;
+  FILES.forEach(function(f){ if(choice[f].length===0)empty++; choice[f].forEach(function(c){brk[c]=(brk[c]||0)+1;total++;}); });
+  document.getElementById('cnt').textContent=total;
+  document.getElementById('brk').textContent=CATS.map(function(c){return c+': '+(brk[c]||0);}).join('  ·  ');
+  document.getElementById('empty').textContent= empty? ('⚠ bez kategorii: '+empty) : 'wszystkie mają kategorię';
+}
+document.getElementById('lb').onclick=function(){ this.classList.remove('open'); };
+fetch('/_katmap.json?t='+Date.now()).then(function(r){return r.ok?r.json():{};}).then(function(data){
+  FILES.forEach(function(f){ choice[f]= Array.isArray(data[f])? data[f].slice() : []; });
+  render();
+}).catch(function(){ FILES.forEach(function(f){choice[f]=[];}); render(); });
+</script></body></html>
